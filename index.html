@@ -13,7 +13,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-
+/* --- Google Translate Custom Styling --- */
+/* Hide the Google Translate top banner */
+.goog-te-banner-frame.skiptranslate, .skiptranslate iframe {
+    display: none !important;
+}
+body {
+    top: 0px !important; 
+}
+/* Style the dropdown box */
+#google_translate_element select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+#google_translate_element select:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+/* Make the options inside the dropdown visible (black text) */
+#google_translate_element select option {
+    color: #1f2937; 
+    background-color: white;
+}
+/* Hide the Google logo and extra text */
+.goog-logo-link {
+    display: none !important;
+}
+.goog-te-gadget {
+    color: transparent !important;
+    font-size: 0px;
+}
         body {
 
             font-family: 'Inter', sans-serif;
@@ -56,7 +92,25 @@
 
         }
 
-        
+/* Professional & Smooth Fade-in Animation */
+@keyframes smoothFadeUp {
+    0% { 
+        opacity: 0; 
+        transform: translateY(15px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.animate-smooth-fade {
+    /* 1.5s duration with a premium easing curve */
+    animation: smoothFadeUp 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.animate-fade-in-up {
+    animation: fadeInUp 1.2s ease-out forwards;
+}
 
         /* WhatsApp Floating Button */
 
@@ -125,56 +179,58 @@
 
 
     <!-- Navbar (Responsive & PC Ready) -->
-<!-- Navbar -->
 <nav class="absolute top-0 left-0 w-full px-6 py-6 z-50 flex justify-between items-center text-white">
     <div class="text-xl md:text-2xl font-bold tracking-widest">TOULUX™</div>
     
     <!-- Desktop Menu -->
-    <ul class="hidden md:flex gap-8 font-medium drop-shadow-md">
-        <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
-        <li><a href="about.html" class="hover:text-gray-300">About Us</a></li>
-        <li><a href="services.html" class="hover:text-gray-300">Service</a></li>
-        <li><a href="portfolio.html" class="hover:text-gray-300">Portfolio</a></li>
+    <ul class="hidden md:flex gap-8 font-medium drop-shadow-md items-center">
+        <li><a href="index.html" class="hover:text-gray-300 transition">Home</a></li>
+        <li><a href="about.html" class="hover:text-gray-300 transition">About Us</a></li>
+        <li><a href="services.html" class="hover:text-gray-300 transition">Services</a></li>
+        <li><a href="portfolio.html" class="hover:text-gray-300 transition">Portfolio</a></li>
     </ul>
 
-    <!-- Mobile Hamburger Button -->
-    <button id="menu-btn" class="md:hidden focus:outline-none">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-    </button>
+    <div class="flex items-center gap-4">
+        <!-- The Google Translate Element -->
+        <div id="google_translate_element"></div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="menu-btn" class="md:hidden focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
 </nav>
+<!-- Mobile Menu Overlay (Hidden by default) -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-[100] bg-gray-900 bg-opacity-95 flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+        <!-- Close Button -->
+        <button id="close-btn" class="absolute top-6 right-6 text-white focus:outline-none hover:text-gray-300">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        
+        <!-- Mobile Links -->
+        <ul class="flex flex-col gap-8 text-2xl font-semibold text-white text-center">
+            <li><a href="index.html" class="hover:text-gray-300 transition">Home</a></li>
+            <li><a href="about.html" class="hover:text-gray-300 transition">About Us</a></li>
+            <li><a href="services.html" class="hover:text-gray-300 transition">Services</a></li>
+            <li><a href="portfolio.html" class="hover:text-gray-300 transition">Portfolio</a></li>
+        </ul>
+    </div>
 
-<!-- Mobile Overlay Menu (Hidden by default) -->
-<div id="mobile-menu" class="fixed inset-0 bg-gray-900 z-40 hidden flex-col items-center justify-center gap-8 text-xl text-white">
-    <button id="close-btn" class="absolute top-8 right-8 text-4xl">×</button>
-    <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
-    <a href="services.html">Services</a>
-    <a href="portfolio.html">Portfolio</a>
-</div>
+<!-- Updated Hero Section -->
+<header class="relative w-full h-[50vh] md:h-[70vh] min-h-[400px] flex items-end justify-start text-left bg-gray-900 bg-cover bg-center p-8 md:p-16" style="background-image: linear-gradient(rgba(17, 24, 39, 0.4), rgba(17, 24, 39, 0.8)), url('https://images.unsplash.com/photo-1518557984649-7b161c230cfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
 
+    <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-[1.1] tracking-tight drop-shadow-md">
+            Innovative Aluminium <br/> Solutions
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light drop-shadow-md border-l-2 border-white pl-4">
+            Premium products for doors, windows, facades, and more
+        </p>
+    </div>
 
-
-    <!-- Hero Section -->
-
-    <header class="relative w-full h-[50vh] md:h-[70vh] min-h-[400px] flex items-center justify-center text-center bg-gray-900 bg-cover bg-center" style="background-image: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.6)), url('https://images.unsplash.com/photo-1518557984649-7b161c230cfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-
-        <div class="px-4 max-w-4xl mx-auto transform translate-y-4">
-
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-
-                Innovative Aluminium <br class="hidden md:block"/> Solutions
-
-            </h1>
-
-            <p class="text-base md:text-xl text-gray-200 mt-4 font-light drop-shadow-md max-w-2xl mx-auto">
-
-                Premium products for doors, windows, facades, and more
-
-            </p>
-
-        </div>
-
-    </header>
+</header>
 
 
 
@@ -188,7 +244,7 @@
 
         <section class="mb-24">
 
-            <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-gray-900">About Toulux</h2>
+<h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-gray-900 tracking-wide animate-smooth-fade">About Toulux</h2>
 
             <p class="text-base md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 font-light">
 
@@ -226,7 +282,7 @@
 
                     <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-900">Hardware & Accessoires</h3>
 
-                    <a href="#" class="text-sm font-medium uppercase tracking-wider bg-gray-50 text-gray-800 border border-gray-300 py-3 px-6 w-full rounded-lg text-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors duration-300">Learn more</a>
+                    <a href="learn-more.html" class="text-sm font-medium uppercase tracking-wider bg-gray-50 text-gray-800 border border-gray-300 py-3 px-6 w-full rounded-lg text-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors duration-300">Learn more</a>
 
                 </div>
 
@@ -242,7 +298,7 @@
 
                     <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-900">Composite Panels</h3>
 
-                    <a href="#" class="text-sm font-medium uppercase tracking-wider bg-gray-50 text-gray-800 border border-gray-300 py-3 px-6 w-full rounded-lg text-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors duration-300">Learn more</a>
+                    <a href="learn-more.html" class="text-sm font-medium uppercase tracking-wider bg-gray-50 text-gray-800 border border-gray-300 py-3 px-6 w-full rounded-lg text-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors duration-300">Learn more</a>
 
                 </div>
 
@@ -258,7 +314,7 @@
 
                     <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-900">Insulating Profiles</h3>
 
-                    <a href="#" class="text-sm font-medium uppercase tracking-wider bg-gray-50 text-gray-800 border border-gray-300 py-3 px-6 w-full rounded-lg text-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors duration-300">Learn more</a>
+                    <a href="learn-more.html" class="text-sm font-medium uppercase tracking-wider bg-gray-50 text-gray-800 border border-gray-300 py-3 px-6 w-full rounded-lg text-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-colors duration-300">Learn more</a>
 
                 </div>
 
@@ -521,5 +577,51 @@
 
 
 </body>
+   <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const closeBtn = document.getElementById('close-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
 
+            // Only run if the elements exist to prevent the error
+            if (menuBtn && closeBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    setTimeout(() => mobileMenu.classList.add('opacity-100'), 10);
+                    menuBtn.classList.add('hidden');
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('opacity-100');
+                    menuBtn.classList.remove('hidden');
+                    setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                });
+            }
+        });
+    </script>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', 
+                includedLanguages: 'en,fr,ar,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Custom function to change language when a flag is clicked
+        function changeLanguage(langCode) {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = langCode;
+                select.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
 </html>
